@@ -1,0 +1,1 @@
+# satoshikanno.github.io
