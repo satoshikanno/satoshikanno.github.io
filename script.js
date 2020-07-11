@@ -36,21 +36,6 @@ const Peer = window.Peer;
 
         navigator.mediaDevices.getUserMedia(constraints)
             .then(function (stream) {
-              for (let i = 0; i !== deviceInfos.length; ++i) {
-                  let deviceInfo = deviceInfos[i];
-                  let option = $('<option>');
-                  option.val(deviceInfo.deviceId);
-                  if (deviceInfo.kind === 'audioinput') {
-                      option.text(deviceInfo.label);
-                      audioSelect.append(option);
-                  } else if (deviceInfo.kind === 'videoinput') {
-                      option.text(deviceInfo.label);
-                      videoSelect.append(option);
-                  }
-              }
-              videoSelect.on('change', setupGetUserMedia);
-              audioSelect.on('change', setupGetUserMedia);
-              setupGetUserMedia();
                 $('#myStream').get(0).srcObject = stream;
                 localStream = stream;
 
