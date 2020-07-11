@@ -18,17 +18,7 @@ const Peer = window.Peer;
 
 
     function setupGetUserMedia() {
-      const defaultVideoStream = await navigator.mediaDevices.getUserMedia({
-          video: true,
-        });
 
-        // デバイスの一覧を取得
-        const devices = await navigator.mediaDevices.enumerateDevices();
-
-        // 任意のデバイスを指定
-        const newVideoInputDevice = devices.find(
-          device => device.kind === 'videoinput'
-        );
 
 
         let audioSource = $('#audioSource').val();
@@ -44,17 +34,25 @@ const Peer = window.Peer;
             localStream = null;
         }
 
-        navigator.mediaDevices.getUserMedia(constraints)
-            .then(function (stream) {
-                $('#myStream').get(0).srcObject = stream;
-                localStream = stream;
-
-                if(existingCall){
-                    existingCall.replaceStream(stream);
+        navigator.mediaDevices.enumerateDevices()
+            .then(function(deviceInfos) {
+                for (let i = 0; i !== deviceInfos.length; ++i) {
+                    let deviceInfo = deviceInfos[i];
+                    let option = $('<option>');
+                    option.val(deviceInfo.deviceId);
+                    if (deviceInfo.kind === 'audioinput') {
+                        option.text(deviceInfo.label);
+                        audioSelect.append(option);
+                    } else if (deviceInfo.kind === 'videoinput') {
+                        option.text(deviceInfo.label);
+                        videoSelect.append(option);
+                    }
                 }
-
+                videoSelect.on('change', setupGetUserMedia);
+                audioSelect.on('change', setupGetUserMedia);
+                setupGetUserMedia();
             }).catch(function (error) {
-                console.error('mediaDevice.getUserMedia() error:', error);
+                console.error('mediaDevices.enumerateDevices() error:', error);
                 return;
             });
     }
