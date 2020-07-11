@@ -16,11 +16,7 @@ const Peer = window.Peer;
     localVideo.srcObject = localStream;
 
 
-
     function setupGetUserMedia() {
-
-
-
         let audioSource = $('#audioSource').val();
         let videoSource = $('#videoSource').val();
         let constraints = {
