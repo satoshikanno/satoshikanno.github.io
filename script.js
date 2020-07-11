@@ -19,16 +19,7 @@ const Peer = window.Peer;
 
     function setupGetUserMedia() {
 
-        //videoElement -> videoタグ, videoSelect -> ソースが書かれたセレクトボックス
-        var videoElement = document.querySelector('video');
-        var videoSelect = document.querySelector('select#videoSource');
 
-        //streamの停止
-        if (window.stream) {
-            window.stream.getTracks().forEach(function(track) {
-                track.stop();
-            });
-        }
         let audioSource = $('#audioSource').val();
         let videoSource = $('#videoSource').val();
         let constraints = {
