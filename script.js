@@ -18,6 +18,17 @@ const Peer = window.Peer;
 
 
     function setupGetUserMedia() {
+      const defaultVideoStream = await navigator.mediaDevices.getUserMedia({
+          video: true,
+        });
+
+        // デバイスの一覧を取得
+        const devices = await navigator.mediaDevices.enumerateDevices();
+
+        // 任意のデバイスを指定
+        const newVideoInputDevice = devices.find(
+          device => device.kind === 'videoinput'
+        );
 
 
         let audioSource = $('#audioSource').val();
