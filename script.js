@@ -30,7 +30,7 @@ const Peer = window.Peer;
             localStream = null;
         }
 
-        navigator.mediaDevices.getUserMedia(constraints)
+        navigator.mediaDevices.getUserMedia({ audio: true, video: { width: {min: 640, ideal: 640}, height: {min: 480,ideal: 480} } })
             .then(function (stream) {
                 $('#myStream').get(0).srcObject = stream;
                 localStream = stream;
