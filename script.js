@@ -15,6 +15,60 @@ const Peer = window.Peer;
     });
     localVideo.srcObject = localStream;
 
+    let audioSelect = $('#audioSource');
+    let videoSelect = $('#videoSource');
+
+    navigator.mediaDevices.enumerateDevices()
+        .then(function(deviceInfos) {
+            for (let i = 0; i !== deviceInfos.length; ++i) {
+                let deviceInfo = deviceInfos[i];
+                let option = $('<option>');
+                option.val(deviceInfo.deviceId);
+                if (deviceInfo.kind === 'audioinput') {
+                    option.text(deviceInfo.label);
+                    audioSelect.append(option);
+                } else if (deviceInfo.kind === 'videoinput') {
+                    option.text(deviceInfo.label);
+                    videoSelect.append(option);
+                }
+            }
+            videoSelect.on('change', setupGetUserMedia);
+            audioSelect.on('change', setupGetUserMedia);
+            setupGetUserMedia();
+        }).catch(function (error) {
+            console.error('mediaDevices.enumerateDevices() error:', error);
+            return;
+        });
+
+    function setupGetUserMedia() {
+        let audioSource = $('#audioSource').val();
+        let videoSource = $('#videoSource').val();
+        let constraints = {
+            audio: {deviceId: {exact: audioSource}},
+            video: {deviceId: {exact: videoSource}}
+        };
+
+        // 省略
+
+        if(localStream){
+            localStream = null;
+        }
+
+        navigator.mediaDevices.getUserMedia(constraints)
+            .then(function (stream) {
+                $('#myStream').get(0).srcObject = stream;
+                localStream = stream;
+
+                if(existingCall){
+                    existingCall.replaceStream(stream);
+                }
+
+            }).catch(function (error) {
+                console.error('mediaDevice.getUserMedia() error:', error);
+                return;
+            });
+    }
+
     const peer = new Peer({
         key: window.__SKYWAY_KEY__,
         debug: 3,

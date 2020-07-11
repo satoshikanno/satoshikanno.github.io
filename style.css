@@ -1,77 +1,111 @@
-/* normalize */
-body { margin: 0; }
+html {
+    background: #000 no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
 
-/* global styles */
 video {
-  background-color: #111;
-  width: 100%;
+    background: black;
+    float: left;
 }
 
-.heading {
-  text-align: center;
-  margin-bottom: 0;
+.videos-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
 }
 
-.note {
-  text-align: center;
+.videos-container video {
+    height: 100%;
 }
 
-.meta {
-  text-align: center;
-  font-size: .8rem;
-  color: gray;
+.controller-container {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    top: 50%;
+    padding-left: 20px;
+    color: white;
 }
 
-.container {
-  margin-left: auto;
-  margin-right: auto;
-  width: 980px;
+.controller-container .messages {
+    overflow: scroll;
 }
 
-/* p2p-media styles */
-.p2p-media {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
+.videos-container video:first-child:nth-last-child(1),
+.videos-container video:first-child:nth-last-child(1) ~ video {
+    width: 100%;
 }
 
-.p2p-media .remote-stream {
-  width: 10%;
+.videos-container video:first-child:nth-last-child(2),
+.videos-container video:first-child:nth-last-child(2) ~ video {
+    width: 50%;
 }
 
-.p2p-media .local-stream {
-  width: 30%;
+.videos-container video:first-child:nth-last-child(3),
+.videos-container video:first-child:nth-last-child(3) ~ video {
+    width: 33.33333%;
 }
 
-/* p2p-data styles */
-.p2p-data {
-  display: grid;
-  grid-template-columns: 30% 1fr;
-  margin: 0 8px;
+.videos-container video:first-child:nth-last-child(4),
+.videos-container video:first-child:nth-last-child(4) ~ video {
+    width: 25%;
 }
 
-.p2p-data .messages {
-  background-color: #eee;
-  min-height: 100px;
-  padding: 8px;
-  margin-top: 0;
+.videos-container video:first-child:nth-last-child(5),
+.videos-container video:first-child:nth-last-child(5) ~ video {
+    width: 20%;
 }
 
-/* room */
-.room {
-  display: grid;
-  grid-template-columns: 30% 40% 30%;
-  gap: 8px;
-  margin: 0 8px;
+.videos-container video:first-child:nth-last-child(6),
+.videos-container video:first-child:nth-last-child(6) ~ video {
+    width: 16.66667%;
 }
 
-.room .remote-streams {
-  background-color: #f6fbff;
+.videos-container video:first-child:nth-last-child(7),
+.videos-container video:first-child:nth-last-child(7) ~ video {
+    width: 14.28571%;
 }
 
-.room .messages {
-  background-color: #eee;
-  min-height: 100px;
-  padding: 8px;
-  margin-top: 0;
+.videos-container video:first-child:nth-last-child(8),
+.videos-container video:first-child:nth-last-child(8) ~ video {
+    width: 12.5%;
+}
+
+input[type=text]{
+    border-radius: 5px;
+    border:#a9a9a9 1px solid;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2),0 0 2px rgba(0,0,0,0.3);
+    width:40%;
+    font-size: 15px;
+    padding: 5px;
+}
+
+input[type=text]:focus {
+    border:solid 1px #20b2aa;
+}
+
+input[type=text], select {
+    outline: none;
+}
+
+button {
+    font-size: 15px;
+    font-weight: bold;
+    padding: 6px 20px;
+    color: #fff;
+    border-style: none;
+    text-shadow: 1px 1px 2px #000;
+    background: -webkit-gradient(linear, left bottom, left top, from(#36d), color-stop(0.5, #248), to(#36d));
+    border-radius: 5px;
+    width: 120px;
+}
+
+button:hover {
+    /* 透明度を20%に指定 */
+    opacity: 0.8;
 }
